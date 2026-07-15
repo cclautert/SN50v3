@@ -59,3 +59,8 @@
 
 *.axf
 *.crf
+
+# GCC/make build output
+Make_out/
+*.bin
+*.elf
