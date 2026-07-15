@@ -17,6 +17,7 @@
 #include "pwm.h"
 #include "TMP117_I2C.h"
 #include "sht3x.h"
+#include "sht40.h"
 
 #define VBAT_FACTOR     3.06f
 
@@ -81,7 +82,14 @@ void BSP_sensor_Init( void  )
 			 LOG_PRINTF(LL_DEBUG,"\n\rUse Sensor is STH3x\r\n");
 			 delay_ms(20);
 		 }
-		 
+
+		 if(check_sht40_connect()==1)
+		 {
+			 flags=4;
+			 LOG_PRINTF(LL_DEBUG,"\n\rUse Sensor is SHT4x\r\n");
+			 delay_ms(20);
+		 }
+
 		 if(flags==0)
 		 {
 			 uint16_t luxtemp;

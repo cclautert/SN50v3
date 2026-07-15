@@ -7,6 +7,7 @@
 #include "I2C_A.h"
 #include "bsp.h"
 #include "sht3x.h"
+#include "sht40.h"
 
 static float gxht30_temp_record=10,gxht30_hum_record=40;
 extern bool bh1750flags;
@@ -363,9 +364,22 @@ void I2C_read_data(sensor_t *sensor_data,uint8_t flag_temp, uint8_t message)
 			delay_ms(20);
 		}
 	}
+	else if(flag_temp==4)
+	{
+		sht3x_data_t get_sht40_data;
+		// change to SHT40_PRECISION_MEDIUM / SHT40_PRECISION_LOW for faster/lower-power reads
+		SHT40_Read(&get_sht40_data,SHT40_PRECISION_HIGH);
+		sensor_data->temp_sht=get_sht40_data.temp_sht;
+		sensor_data->hum_sht=get_sht40_data.hum_sht;
+		if(message==1)
+		{
+			LOG_PRINTF(LL_DEBUG,"SHT4x_temp:%.1f,SHT4x_hum:%.1f\r\n",sensor_data->temp_sht,sensor_data->hum_sht);
+			delay_ms(20);
+		}
+	}
 	else if(flag_temp==3)
-	{		
-    bh1750flags=1;		
+	{
+    bh1750flags=1;
 		sensor_data->illuminance=bh1750_read();		
 		if(message==1)
 		{			

@@ -472,6 +472,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Drivers\sensor\sht3x.c</FilePath>
             </File>
+            <File>
+              <FileName>sht40.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Drivers\sensor\sht40.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
